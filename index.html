@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>C# Fundamentals – Assignments 4 & 5 (Complete Answers)</title>
+  <style>
+    :root{
+      --bg:#0f172a; --panel:#0b1220; --ink:#e5e7eb; --muted:#94a3b8;
+      --border:#1f2937; --brand:#8b5cf6; --accent:#22d3ee; --ok:#10b981; --warn:#f59e0b;
+      --code:#0a0f1e;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1200px 600px at -10% 0%,rgba(34,211,238,.15),transparent 55%),radial-gradient(900px 400px at 110% 10%,rgba(139,92,246,.12),transparent 60%),var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    header{position:sticky;top:0;background:linear-gradient(180deg,rgba(15,23,42,.9),rgba(15,23,42,.6));backdrop-filter:blur(10px);z-index:50;border-bottom:1px solid var(--border)}
+    header .inner{max-width:1100px;margin:auto;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px}
+    .brand{display:flex;gap:10px;align-items:center}
+    .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent))}
+    h1{font-size:clamp(1.1rem,2.4vw,1.6rem);margin:0}
+    nav{display:flex;gap:8px;flex-wrap:wrap}
+    nav a{color:var(--ink);text-decoration:none;border:1px solid var(--border);padding:6px 10px;border-radius:999px;font-size:.9rem}
+    nav a:hover{border-color:#334155}
+    main{max-width:1100px;margin:auto;padding:20px}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    section.card{background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0));border:1px solid var(--border);border-radius:16px;padding:18px}
+    section.card h2{margin:0 0 8px;font-size:clamp(1.05rem,2.2vw,1.45rem)}
+    .meta{color:var(--muted);font-size:.92rem;margin-bottom:10px}
+    details.qa{border:1px solid var(--border);border-radius:14px;padding:14px;background:var(--panel)}
+    details.qa+details.qa{margin-top:14px}
+    details.qa[open]{box-shadow:0 0 0 1px rgba(139,92,246,.35)}
+    details.qa summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px}
+    details.qa summary::-webkit-details-marker{display:none}
+    .badge{font-size:.75rem;padding:2px 8px;border-radius:999px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);color:#a5f3fc}
+    ul.points{margin:10px 0 0 1rem}
+    ul.points li{margin:6px 0}
+    .hl{background:linear-gradient(180deg,rgba(34,211,238,.15),rgba(34,211,238,0));padding:0 4px;border-radius:6px}
+    .note{padding:10px;border-left:3px solid var(--brand);background:rgba(139,92,246,.08);border-radius:10px;margin-top:8px}
+    .syntax{display:inline-block;margin:8px 0;font-size:.9rem;color:#a5b4fc;background:rgba(99,102,241,.12);border:1px dashed rgba(99,102,241,.4);padding:6px 10px;border-radius:8px}
+    .codebox{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--code);margin-top:10px}
+    .codebar{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:8px 10px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.05),transparent)}
+    .codebar .title{font-size:.9rem;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .btns{display:flex;gap:8px;flex-wrap:wrap}
+    button.btn{font-size:.84rem;border:1px solid var(--border);padding:6px 10px;border-radius:8px;background:#0b1120;color:#e5e7eb;cursor:pointer}
+    button.btn:hover{border-color:#334155}
+    pre.code{margin:0;padding:14px;overflow:auto;white-space:pre;min-height:160px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace;font-size:.94rem;color:#e2e8f0}
+    .footer{color:var(--muted);font-size:.9rem;margin-top:24px;text-align:center}
+  </style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <div class="brand"><span class="dot"></span><h1>C# Fundamentals — Assignments 4 & 5 (Answers)</h1></div>
+    <nav>
+      <a href="#a4">Assignment 4</a>
+      <a href="#a5">Assignment 5</a>
+      <a href="#tips">Tips</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="a4" class="card">
+    <h2>🔹 Assignment 4</h2>
+    <p class="meta">Each answer includes the question, key points, syntax, and a runnable code example.</p>
+
+    <!-- Q1 -->
+    <details class="qa" open>
+      <summary><span class="badge">Q1</span><strong>&nbsp;What are method parameters in C#?</strong></summary>
+      <div>
+        <span class="syntax">Syntax: <code>returnType MethodName(type param1, type param2 = default, params T[] rest)</code></span>
+        <ul class="points">
+          <li><span class="hl">Parameters</span> are named inputs in a method signature; arguments are the actual values you pass at call time.</li>
+          <li>Types of parameters:
+            <ul>
+              <li><b>Value</b> (default): copies the argument value.</li>
+              <li><b>ref</b> / <b>out</b>: pass by reference (modify caller variable / must assign in method).</li>
+              <li><b>params</b>: accept variable number of arguments as an array.</li>
+              <li><b>Optional</b> with default values for convenience.</li>
+            </ul>
+          </li>
+          <li>Benefits: stronger type-safety, better reuse, and self-documenting APIs.</li>
+        </ul>
+        <div class="codebox" data-file="ParametersDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Value, ref, out, params, optional</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+class Calculator
+{
+    // Value parameters
+    public int Add(int a, int b) =&gt; a + b;
+
+    // ref parameter (caller must initialize)
+    public void Double(ref int x) { x *= 2; }
+
+    // out parameter (method must assign)
+    public bool TryDivide(int a, int b, out int result)
+    {
+        if (b == 0) { result = 0; return false; }
+        result = a / b; return true;
+    }
+
+    // params (variable arguments)
+    public int Sum(params int[] values)
+    {
+        int total = 0;
+        foreach (var v in values) total += v;
+        return total;
+    }
+
+    // optional parameter with default value
+    public decimal PriceWithTax(decimal price, decimal rate = 0.18m) =&gt; price * (1 + rate);
+}
+
+class Program
+{
+    static void Main()
+    {
+        var c = new Calculator();
+        Console.WriteLine(c.Add(2, 3));          // 5
+
+        int n = 10; c.Double(ref n);             // n becomes 20
+        Console.WriteLine(n);
+
+        if (c.TryDivide(10, 2, out int q))       // q assigned inside method
+            Console.WriteLine(q);
+
+        Console.WriteLine(c.Sum(1,2,3,4));       // 10
+        Console.WriteLine(c.PriceWithTax(1000)); // 1180
+    }
+}</pre>
+        </div>
+        <p class="note"><b>Tip:</b> Prefer value parameters unless you actually need <code>ref/out</code>.</p>
+      </div>
+    </details>
+
+    <!-- Q2 -->
+    <details class="qa">
+      <summary><span class="badge">Q2</span><strong>&nbsp;What is a class and an object in C#?</strong></summary>
+      <div>
+        <span class="syntax">Syntax: <code>class ClassName { /* members */ }</code> &nbsp;→&nbsp; <code>var obj = new ClassName(...);</code></span>
+        <ul class="points">
+          <li>A <span class="hl">class</span> defines a type (data + behavior). An <span class="hl">object</span> is a runtime instance of that class.</li>
+          <li>Objects hold state (fields/properties) and expose behavior via methods.</li>
+          <li>Enables encapsulation and reuse.</li>
+        </ul>
+        <div class="codebox" data-file="ClassObjectDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Class vs Object</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+class Car // class (blueprint)
+{
+    public string Make { get; }
+    public string Model { get; }
+
+    public Car(string make, string model)
+    {
+        Make = make; Model = model;
+    }
+
+    public void Honk() =&gt; Console.WriteLine($"{Make} {Model} says Beep!");
+}
+
+class Program
+{
+    static void Main()
+    {
+        Car myCar = new Car("Toyota", "Corolla"); // object (instance)
+        myCar.Honk();
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q3 -->
+    <details class="qa">
+      <summary><span class="badge">Q3</span><strong>&nbsp;What are class members in C#?</strong></summary>
+      <div>
+        <ul class="points">
+          <li>Members include: <b>fields</b>, <b>properties</b>, <b>methods</b>, <b>constructors</b>, <b>events</b>, <b>indexers</b>, <b>nested types</b>, and <b>destructors</b>.</li>
+          <li>Each member can have access modifiers (<code>public</code>, <code>private</code>, etc.).</li>
+        </ul>
+        <div class="codebox" data-file="ClassMembersDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Common Class Members</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+public class User
+{
+    // Field
+    private string _email;
+
+    // Property
+    public string Email
+    {
+        get =&gt; _email;
+        set
+        {
+            if (!value.Contains("@")) throw new ArgumentException("Invalid email");
+            _email = value;
+        }
+    }
+
+    // Auto-property
+    public string Name { get; init; } = "Unknown";
+
+    // Method
+    public void SendWelcome() =&gt; Console.WriteLine($"Welcome, {Name}!");
+
+    // Event
+    public event EventHandler? LoggedIn;
+
+    // Indexer
+    public string this[int idx] =&gt; $"User#{idx}: {Name}";
+
+    // Constructor
+    public User(string email, string name) { Email = email; Name = name; }
+
+    // Nested type
+    public enum Role { Guest, Member, Admin }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q4 -->
+    <details class="qa">
+      <summary><span class="badge">Q4</span><strong>&nbsp;What is a constructor in C#?</strong></summary>
+      <div>
+        <span class="syntax">Syntax: <code>public ClassName(...) { /* initialize */ }</code> &nbsp;|&nbsp; <code>public ClassName() : this(...)</code> (chaining)</span>
+        <ul class="points">
+          <li>A <span class="hl">constructor</span> runs at object creation to initialize state.</li>
+          <li>Has same name as the class and no return type; can be overloaded.</li>
+          <li>Implicit parameterless constructor exists until you define any constructor.</li>
+        </ul>
+        <div class="codebox" data-file="ConstructorDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Constructors & Chaining</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+class Point
+{
+    public int X { get; }
+    public int Y { get; }
+
+    // parameterless constructor
+    public Point() : this(0, 0) {}
+
+    // parameterized constructor
+    public Point(int x, int y)
+    {
+        X = x; Y = y;
+    }
+
+    public override string ToString() =&gt; $"({X},{Y})";
+}
+
+class Program
+{
+    static void Main()
+    {
+        var p1 = new Point();       // (0,0)
+        var p2 = new Point(5, 7);   // (5,7)
+        Console.WriteLine(p1);
+        Console.WriteLine(p2);
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q5 -->
+    <details class="qa">
+      <summary><span class="badge">Q5</span><strong>&nbsp;What are constructor parameters and how do they save time?</strong></summary>
+      <div>
+        <ul class="points">
+          <li>Let callers supply required data at creation time → object is fully initialized immediately.</li>
+          <li>Reduces extra property assignments and avoids invalid intermediate states.</li>
+          <li>For many parameters, consider object initializers, records, or the Options pattern.</li>
+        </ul>
+        <div class="codebox" data-file="ConstructorParamsDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Constructor Parameters Save Time</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+class MailSettings
+{
+    public string Host { get; }
+    public int Port { get; }
+    public bool UseSsl { get; }
+
+    public MailSettings(string host, int port, bool useSsl)
+        =&gt; (Host, Port, UseSsl) = (host, port, useSsl);
+}
+
+class Program
+{
+    static void Main()
+    {
+        var cfg = new MailSettings("smtp.example.com", 587, true);
+        Console.WriteLine($"SMTP {cfg.Host}:{cfg.Port} SSL={cfg.UseSsl}");
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section id="a5" class="card">
+    <h2>🔹 Assignment 5</h2>
+    <p class="meta">Access control, properties, polymorphism, abstraction, and enums — each with syntax and examples.</p>
+
+    <!-- Q1 -->
+    <details class="qa" open>
+      <summary><span class="badge">Q1</span><strong>&nbsp;Types of access modifiers in C#</strong></summary>
+      <div>
+        <ul class="points">
+          <li><b>public</b> — accessible from anywhere.</li>
+          <li><b>private</b> — only within the containing type (default for members).</li>
+          <li><b>protected</b> — within the type and its subclasses.</li>
+          <li><b>internal</b> — within the same assembly.</li>
+          <li><b>protected internal</b> — <em>either</em> protected <em>or</em> internal.</li>
+          <li><b>private protected</b> — containing class or derived types in the <em>same</em> assembly.</li>
+        </ul>
+        <div class="codebox" data-file="AccessModifiersDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Access Modifiers in Practice</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+public class Base
+{
+    public int A = 1;               // anywhere
+    private int B = 2;              // only in Base
+    protected int C = 3;            // Base + subclasses
+    internal int D = 4;             // same assembly
+    protected internal int E = 5;   // protected OR internal
+    private protected int F = 6;    // same assembly + subclasses of Base
+}
+
+public class Derived : Base
+{
+    public void Show()
+    {
+        Console.WriteLine(A); // ok
+        // Console.WriteLine(B); // error
+        Console.WriteLine(C); // ok
+        Console.WriteLine(D); // ok (same assembly)
+        Console.WriteLine(E); // ok
+        Console.WriteLine(F); // ok (derived + same assembly)
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q2 -->
+    <details class="qa">
+      <summary><span class="badge">Q2</span><strong>&nbsp;What are properties in C#?</strong></summary>
+      <div>
+        <span class="syntax">Syntax: <code>type Name { get; set; }</code> | <code>type Name { get; init; }</code> | <code>type Name =&gt; expression;</code></span>
+        <ul class="points">
+          <li>Properties provide controlled access to fields; they can validate, compute, or encapsulate storage.</li>
+          <li>Kinds: auto-properties, computed/read-only, init-only, custom get/set with logic.</li>
+        </ul>
+        <div class="codebox" data-file="PropertiesDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Properties (auto, validation, init)</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+public class Product
+{
+    // Backing field + validation
+    private decimal _price;
+    public decimal Price
+    {
+        get =&gt; _price;
+        set { if (value &lt; 0) throw new ArgumentOutOfRangeException(); _price = value; }
+    }
+
+    // Init-only property
+    public string Name { get; init; } = "Unnamed";
+
+    // Computed property (read-only)
+    public decimal PriceWithTax =&gt; Price * 1.18m;
+}
+
+class Program
+{
+    static void Main()
+    {
+        var p = new Product { Name = "Keyboard", Price = 1000m };
+        Console.WriteLine($"{p.Name}: Rs {p.PriceWithTax}");
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q3 -->
+    <details class="qa">
+      <summary><span class="badge">Q3</span><strong>&nbsp;What is polymorphism in C#?</strong></summary>
+      <div>
+        <ul class="points">
+          <li><b>Compile‑time</b> polymorphism: method overloading (same name, different signatures).</li>
+          <li><b>Run‑time</b> polymorphism: virtual methods + override; base references call derived implementations.</li>
+        </ul>
+        <div class="codebox" data-file="PolymorphismDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Overloading vs Overriding</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+// Compile-time: overloading
+class Printer
+{
+    public void Print(string s) =&gt; Console.WriteLine(s);
+    public void Print(int n) =&gt; Console.WriteLine($"Number: {n}");
+}
+
+// Run-time: overriding
+abstract class Shape { public abstract double Area(); }
+
+class Circle : Shape
+{
+    public double R { get; }
+    public Circle(double r) =&gt; R = r;
+    public override double Area() =&gt; Math.PI * R * R;
+}
+
+class Rectangle : Shape
+{
+    public double W { get; }
+    public double H { get; }
+    public Rectangle(double w, double h) =&gt; (W,H) = (w,h);
+    public override double Area() =&gt; W * H;
+}
+
+class Program
+{
+    static void Main()
+    {
+        var pr = new Printer();
+        pr.Print("Hello");
+        pr.Print(42);
+
+        Shape s1 = new Circle(3);
+        Shape s2 = new Rectangle(4, 5);
+        Console.WriteLine(s1.Area()); // circle logic
+        Console.WriteLine(s2.Area()); // rectangle logic
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q4 -->
+    <details class="qa">
+      <summary><span class="badge">Q4</span><strong>&nbsp;What is abstraction in C#?</strong></summary>
+      <div>
+        <ul class="points">
+          <li>Expose essential behavior while hiding implementation details.</li>
+          <li>Achieved via <b>interfaces</b> and <b>abstract classes</b>.</li>
+        </ul>
+        <div class="codebox" data-file="AbstractionDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Abstraction with Interface & Abstract Class</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+public interface INotifier
+{
+    void Notify(string message); // what, not how
+}
+
+public abstract class NotifierBase : INotifier
+{
+    public void Notify(string message)
+    {
+        var payload = Format(message);
+        Send(payload);
+    }
+
+    protected abstract string Format(string message); // must implement
+    protected abstract void Send(string payload);
+}
+
+public class EmailNotifier : NotifierBase
+{
+    protected override string Format(string message) =&gt; $"Subject: Info\nBody: {message}";
+    protected override void Send(string payload) =&gt; Console.WriteLine($"EMAIL =&gt;\n{payload}");
+}
+
+class Program
+{
+    static void Main()
+    {
+        INotifier n = new EmailNotifier();
+        n.Notify("Order shipped!");
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+
+    <!-- Q5 -->
+    <details class="qa">
+      <summary><span class="badge">Q5</span><strong>&nbsp;What is an enum in C#?</strong></summary>
+      <div>
+        <ul class="points">
+          <li>An <span class="hl">enum</span> is a named set of constants backed by an integral type (default <code>int</code>).</li>
+          <li>Improves readability and prevents “magic numbers”.</li>
+          <li>Use <code>[Flags]</code> for bitwise combinations.</li>
+        </ul>
+        <div class="codebox" data-file="EnumDemo.cs">
+          <div class="codebar">
+            <span class="title">C# — Enum Basics & [Flags]</span>
+            <div class="btns">
+              <button class="btn" data-action="copy">Copy</button>
+              <button class="btn" data-action="download">Download</button>
+            </div>
+          </div>
+<pre class="code">using System;
+
+public enum OrderStatus
+{
+    Pending = 0,
+    Processing = 1,
+    Shipped = 2,
+    Delivered = 3,
+    Cancelled = 4
+}
+
+[Flags]
+public enum FilePermissions
+{
+    None = 0,
+    Read = 1,
+    Write = 2,
+    Execute = 4
+}
+
+class Program
+{
+    static void Main()
+    {
+        OrderStatus status = OrderStatus.Shipped;
+        Console.WriteLine(status);
+
+        var perms = FilePermissions.Read | FilePermissions.Write; // combine bits
+        Console.WriteLine(perms);
+    }
+}</pre>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section id="tips" class="card">
+    <h2>📘 Study Tips</h2>
+    <ul class="points">
+      <li>Try each snippet in a console app (<code>dotnet new console</code>) to see output.</li>
+      <li>Rewrite examples with your own domain (banking, e‑commerce, games) to cement ideas.</li>
+      <li>Start members as <code>private</code>; open up access only when necessary.</li>
+    </ul>
+    <p class="footer">Responsive, copy‑friendly page — built for phones, tablets, and desktops.</p>
+  </section>
+</main>
+
+<script>
+  // Copy and Download handlers (fast, dependency-free)
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('button.btn');
+    if(!btn) return;
+    const action = btn.dataset.action;
+    const box = btn.closest('.codebox');
+    const pre = box.querySelector('pre.code');
+    const text = pre.innerText;
+    if(action === 'copy'){
+      navigator.clipboard.writeText(text).then(() => toast('Copied!'));
+    } else if(action === 'download'){
+      const name = (box.dataset.file || 'snippet') + '';
+      const blob = new Blob([text], {type:'text/plain'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+    }
+  });
+
+  function toast(msg){
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0b1120;border:1px solid #334155;color:#e5e7eb;padding:8px 12px;border-radius:999px;z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);
+    requestAnimationFrame(()=>{ t.style.opacity = 1; });
+    setTimeout(()=>{ t.style.opacity = 0; t.addEventListener('transitionend',()=>t.remove(),{once:true}); }, 1200);
+  }
+</script>
+</body>
+</html>
